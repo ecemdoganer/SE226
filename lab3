@@ -1,0 +1,80 @@
+#include <iostream>
+#include <new>
+using namespace std;
+
+class Node {
+public:
+    int data;
+    Node *next;
+   
+    Node(int n_data) {
+        this->data = n_data;
+        this->next = nullptr;
+    }
+};
+
+class Queue {
+    Node *front, *rear;
+
+public:
+    Queue() {
+        front = rear = nullptr;
+    }
+    
+    bool isEmpty() {
+        return front == nullptr;
+    }
+    
+    void enqueue(int n_data) {
+        Node *a = new Node(n_data); 
+        
+        if (this->isEmpty()) {
+            front = rear = a;
+            return;
+        }
+        
+        rear->next = a;  
+        rear = a;       
+    }
+  
+    void dequeue() {
+        if (this->isEmpty()) {
+            return; 
+        }
+        
+        Node* temp = front; 
+        front = front->next; 
+        
+        if (front == nullptr) {
+            rear = nullptr; 
+        }
+        
+        delete temp; 
+    }
+  
+    int top() {
+        if (this->isEmpty()) {
+            cout << "Queue is empty." << endl;
+            return 0; 
+        }
+        return front->data; 
+    }
+};
+
+int main() {
+    Queue q;
+    
+    q.enqueue(10); 
+    
+    cout << "Queue Front: " << q.top() << endl; 
+    
+    q.dequeue(); 
+    
+    q.enqueue(30);  
+    q.enqueue(40);  
+    q.enqueue(50);  
+    
+    q.dequeue(); 
+    
+    return 0;
+}
