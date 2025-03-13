@@ -1,0 +1,81 @@
+#include <iostream>
+using namespace std;
+
+class Node {
+public:
+    int data;
+    Node* next;
+    
+    public: 
+    
+    Node (int data, Node* next) {
+        this->data = data;
+        this->next = next;
+    }
+};
+
+class Stack {
+private:
+    Node* head;     // Points to top element of stack.
+    int num;        // Number of elements (index-style tracking).
+    int capacity;   // Fixed size limit (resized when full).
+
+public:
+    Stack(int initialCapacity) {  
+        // You can set any initial size.
+        head = nullptr;
+        num = -1;
+        capacity = initialCapacity;
+    }
+    void push(int x) {
+        Node* node = new Node(x, nullptr);
+        
+        if (isEmpty()) {
+            cout<<"Stack is empty.";
+            num++;
+        } else {
+            Node* temp = head;
+            
+            head = node;
+            head->next = temp;
+            num++;
+        }
+    }
+
+    int pop() {
+        
+        Node* temp = head;
+        
+        if (isEmpty()) {
+            cout<<"Stack is empty.";
+        } 
+        head = head->next;
+        delete temp;
+        num--;
+    
+        return 0;
+    }
+    int peek() {
+        return head->data;
+    }
+
+    bool isEmpty() {
+        return num < 0;
+    }
+
+    void increaseCapacity() {
+        // To be implemented.
+    }
+
+    bool deleteElement(int val) {
+        // To be implemented.
+        return false;
+    }
+};
+
+int main() {
+    Stack stack(3);
+       stack.push(5);
+       cout<<stack.pop()<<endl;
+    return 0;
+}
